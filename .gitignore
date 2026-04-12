@@ -1,6 +1,8 @@
 # Env files
 .env*
-CLAUDE.md 
+CLAUDE.md
+*.zip
+*.rar
 
 
 ### Astro ###
