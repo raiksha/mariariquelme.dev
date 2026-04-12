@@ -1,0 +1,288 @@
+/* ============================
+   VARIABLES
+   ============================ */
+:root {
+  /* Paleta modo oscuro */
+  --yellow:      #F2B90F;
+  --orange:      #F2A413;
+  --red:         #D93B18;
+  --light:       #F2F2F2;
+  --dark:        #2b2b2b;
+
+  /* Derivados oscuros */
+  --bg:          #1d1d1d;
+  --surface:     #444444;
+  --surface-2:   #252525;
+  --text:        #F2F2F2;
+  --text-muted:  rgba(242, 242, 242, 0.4);
+  --accent:      #F2B90F;
+  --accent-2:    #D93B18;
+
+  /* Tipografía */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+}
+
+/* ============================
+   RESET + BASE
+   ============================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;          /* Sin scroll, todo en una pantalla */
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ============================
+   FONDO — TEXTURA NOISE
+   Capa semitransparente que añade
+   grano visual, evita que el fondo
+   se vea plano y digital-genérico
+   ============================ */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+
+
+/* ============================
+   CONTENEDOR PRINCIPAL
+   ============================ */
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 92vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 2rem 0;
+  animation: fadeIn 0.6s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+   HEADER
+   ============================ */
+.site-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Badge con borde punteado estilo "ticket" */
+.domain-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  border: 1px dashed rgba(242, 242, 242, 0.2);
+  border-radius: 2px;
+  padding: 0.35rem 1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* ============================
+   HERO — SECCIÓN CENTRAL
+   ============================ */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+}
+
+/* ============================
+   BLOQUE DE TÍTULO
+   ============================ */
+.title-block {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Etiqueta pequeña estilo sistema */
+.label-small {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* Título más compacto */
+.main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 4.2rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--light);
+}
+
+/* ============================
+   MARCO DE IMAGEN
+   El "frame" tiene esquinas visibles
+   tipo visor técnico/cámara
+   ============================ */
+.image-frame {
+  position: relative;
+  width: min(340px, 82vw);
+}
+
+/* Las 4 esquinas del marco */
+.frame-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--accent);
+  border-style: solid;
+  z-index: 2;
+}
+.frame-corner.tl { top: -6px;  left: -6px;  border-width: 2px 0 0 2px; }
+.frame-corner.tr { top: -6px;  right: -6px; border-width: 2px 2px 0 0; }
+.frame-corner.bl { bottom: -6px; left: -6px;  border-width: 0 0 2px 2px; }
+.frame-corner.br { bottom: -6px; right: -6px; border-width: 0 2px 2px 0; }
+
+/* Contenedor interno con borde sutil */
+.image-inner {
+  position: relative;
+  border: 1px solid rgba(242, 185, 15, 0.25);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* La imagen / GIF */
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  /* Sutil filtro para integrarla al tema oscuro */
+  filter: sepia(0.15) brightness(0.9);
+}
+
+/* Scanlines: líneas horizontales semi-transparentes
+   que le dan efecto de pantalla CRT/monitor viejo */
+.img-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+}
+
+/* Etiqueta debajo del frame */
+.frame-label {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+/* ============================
+   BLOQUE DE DESCRIPCIÓN
+   ============================ */
+.desc-block {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.desc-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.muted-small {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+.site-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+/* Cursor parpadeante */
+.blink-cursor {
+  font-size: 0.7rem;
+  color: var(--accent);
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ============================
+   RESPONSIVO — pantallas pequeñas
+   ============================ */
+@media (max-height: 640px) {
+  .container { gap: 0.8rem; }
+  .main-title { font-size: 3rem; }
+  .image-frame { width: min(240px, 70vw); }
+}
+
+@media (max-width: 400px) {
+  .main-title { font-size: 3rem; }
+}
