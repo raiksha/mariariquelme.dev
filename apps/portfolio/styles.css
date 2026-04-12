@@ -47,6 +47,10 @@ body {
   position: relative;
 }
 
+.no-underline {
+  text-decoration: none;
+}
+
 /* ============================
    FONDO — TEXTURA NOISE
    Capa semitransparente que añade
@@ -103,7 +107,6 @@ body {
   border-radius: 2px;
   padding: 0.35rem 1rem;
   text-transform: uppercase;
-  text-decoration: none;
 }
 
 /* ============================
