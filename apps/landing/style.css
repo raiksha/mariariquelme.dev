@@ -88,6 +88,12 @@ body {
 
 .lang-btn.open .chevron { transform: rotate(180deg); }
 
+.flag-icon {
+  border-radius: 20%;
+  width: clamp(20px, 1.1vw, 24px);
+  height: auto;
+}
+
 .lang-dropdown {
   display: none;
   position: absolute;
